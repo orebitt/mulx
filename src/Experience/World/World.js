@@ -6,6 +6,7 @@ import Floor from './Floor.js'
 import Hypercube from './Hypercube.js'
 import Spectra from './Spectra.js'
 import Stars from './Stars.js'
+import Sphere from './Sphere.js'
 // import Sushi from './Sushi.js'
 // import Test from './Test.js'
 
@@ -29,6 +30,7 @@ export default class World
             this.stars = new Stars()
             this.spectra = new Spectra()
             // this.sushi = new Sushi()
+            this.sphere = new Sphere()
             
             this.environment = new Environment()
         })
