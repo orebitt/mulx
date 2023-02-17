@@ -64,6 +64,7 @@ export default class Experience
         this.renderer.instance.xr.enabled = true;
         document.body.appendChild( VRButton.createButton( this.renderer.instance ) );
         this.renderer.instance.setAnimationLoop( ()=> {
+            console.log("loop", this.time.current)
             this.renderer.instance.render( this.scene, this.camera.instance );
         });
 
