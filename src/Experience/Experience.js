@@ -116,6 +116,8 @@ export default class Experience
         this.camera.update()
         // this.renderer.update()
         this.world.update()
+        console.log(". ", this.time.current)
+
         // this.world.circles.undulate(this.time.elapsed)
         // this.world.hypercube.wub(this.time.elapsed)
         //https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
