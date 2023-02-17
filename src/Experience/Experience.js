@@ -65,6 +65,10 @@ export default class Experience
         document.body.appendChild( VRButton.createButton( this.renderer.instance ) );
         this.renderer.instance.setAnimationLoop( ()=> {
             console.log("loop", this.time.current)
+            this.renderer.tick += 1
+            if (this.renderer.tick % 250 == 0){
+                this.getInfo()
+            }
             this.renderer.instance.render( this.scene, this.camera.instance );
         });
 
@@ -96,10 +100,10 @@ export default class Experience
         this.time.on('tick', ()=>
         {
             this.update()
-            console.log(this.time.current)
             // Should be modified to a global tick value so that all requests can be sent at the same time.
             if(this.time.current % 100 == 0){
-                this.getInfo()
+                //this.getInfo()
+                console.log('ticking around!')
             }
         })
         
@@ -117,7 +121,6 @@ export default class Experience
         this.camera.update()
         // this.renderer.update()
         this.world.update()
-        console.log(". ", this.time.current)
 
         // this.world.circles.undulate(this.time.elapsed)
         // this.world.hypercube.wub(this.time.elapsed)
