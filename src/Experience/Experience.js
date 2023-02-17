@@ -64,7 +64,6 @@ export default class Experience
         this.renderer.instance.xr.enabled = true;
         document.body.appendChild( VRButton.createButton( this.renderer.instance ) );
         this.renderer.instance.setAnimationLoop( ()=> {
-            // tick();
             this.renderer.instance.render( this.scene, this.camera.instance );
         });
 
@@ -96,6 +95,7 @@ export default class Experience
         this.time.on('tick', ()=>
         {
             this.update()
+            console.log(this.time.current)
             // Should be modified to a global tick value so that all requests can be sent at the same time.
             if(this.time.current % 100 == 0){
                 this.getInfo()
