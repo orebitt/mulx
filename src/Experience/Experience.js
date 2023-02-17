@@ -66,7 +66,7 @@ export default class Experience
         this.renderer.instance.setAnimationLoop( ()=> {
             console.log("loop", this.time.current)
             this.renderer.tick += 1
-            if (this.renderer.tick % 250 == 0){
+            if (this.renderer.tick % 10 == 0){
                 this.getInfo()
             }
             this.renderer.instance.render( this.scene, this.camera.instance );
@@ -101,10 +101,9 @@ export default class Experience
         {
             this.update()
             // Should be modified to a global tick value so that all requests can be sent at the same time.
-            if(this.time.current % 100 == 0){
+            //if(this.time.current % 100 == 0){
                 //this.getInfo()
-                console.log('ticking around!')
-            }
+            //}
         })
         
         
