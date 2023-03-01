@@ -18,6 +18,7 @@ export default class Socket{
         this.right = new THREE.Mesh( geometry, lrmaterial );
 
         this.inScene = false
+        this.pending = false
         })
 
 

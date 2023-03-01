@@ -57,6 +57,7 @@ export default class Experience
         this.socket.connection.addEventListener('message', e => {
             // console.log('WebSocket received a message:', e)
             this.socket.fin_msg = JSON.parse(e.data).message
+            this.socket.pending = false
             this.renderFriends(this.socket.fin_msg)             
             
             })
@@ -64,9 +65,8 @@ export default class Experience
         this.renderer.instance.xr.enabled = true;
         document.body.appendChild( VRButton.createButton( this.renderer.instance ) );
         this.renderer.instance.setAnimationLoop( ()=> {
-            console.log("loop", this.time.current)
             this.renderer.tick += 1
-            if (this.renderer.tick % 10 == 0){
+            if (this.renderer.tick % 1 == 0){
                 this.getInfo()
             }
             this.renderer.instance.render( this.scene, this.camera.instance );
@@ -226,8 +226,10 @@ export default class Experience
                 action: 'message',
                 msg
             }
-            this.socket.connection.send(JSON.stringify(this.payload))
-      
+            if (this.socket.pending === false){
+                this.socket.connection.send(JSON.stringify(this.payload))
+                this.socket.pending = true
+            }
 
             } catch(err){
                 console.log("Finding data failed. Error: , websocket not sent", err)
