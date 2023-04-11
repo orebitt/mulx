@@ -10,6 +10,8 @@ import World from './World/World.js'
 import sources from './sources.js'
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js'
 import Controllers from './Controllers.js'
+import TeleportVR from 'teleportvr';
+
 
 let instance = null
 
@@ -51,11 +53,12 @@ export default class Experience
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.socket = new Socket()
+        this.teleportVR = new TeleportVR(this.scene, this.camera.instance);
         console.log('Starting connection to', this.socket)
 
         // Once message is sent, wait for response
         this.socket.connection.addEventListener('message', e => {
-            // console.log('WebSocket received a message:', e)
+            console.log('WebSocket received a message:', e)
             this.socket.fin_msg = JSON.parse(e.data).message
             this.socket.pending = false
             this.renderFriends(this.socket.fin_msg)             
@@ -69,6 +72,7 @@ export default class Experience
             if (this.renderer.tick % 1 == 0){
                 this.getInfo()
             }
+            this.teleportVR.update();
             this.renderer.instance.render( this.scene, this.camera.instance );
         });
 

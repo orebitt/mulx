@@ -19,6 +19,7 @@ export default class Socket{
 
         this.inScene = false
         this.pending = false
+        this.firstReceived = false
         })
 
 

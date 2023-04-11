@@ -1,0 +1,14 @@
+/**
+ * @license
+ * TeleportVR library and demos
+ * Copyright 2018-2021 Sean Bradley https://sbcode.net
+ * https://github.com/Sean-Bradley/TeleportVR/blob/master/LICENSE
+ */
+
+/**
+ * lil-gui
+ * https://lil-gui.georgealways.com
+ * @version 0.11.0
+ * @author George Michael Brower
+ * @license MIT
+ */
