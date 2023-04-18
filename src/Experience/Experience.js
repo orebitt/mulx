@@ -11,6 +11,7 @@ import sources from './sources.js'
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js'
 import Controllers from './Controllers.js'
 import TeleportVR from 'teleportvr';
+import Locomotion from './Locomotion.js'
 
 
 let instance = null
@@ -54,6 +55,7 @@ export default class Experience
         this.renderer = new Renderer()
         this.socket = new Socket()
         this.teleportVR = new TeleportVR(this.scene, this.camera.instance);
+        this.locomotion = new Locomotion()
         console.log('Starting connection to', this.socket)
 
         // Once message is sent, wait for response
@@ -67,7 +69,9 @@ export default class Experience
 
         this.renderer.instance.xr.enabled = true;
         document.body.appendChild( VRButton.createButton( this.renderer.instance ) );
+        // True animation loop, time loop does not work.
         this.renderer.instance.setAnimationLoop( ()=> {
+            this.locomotion.calculateLocomotion();  
             this.renderer.tick += 1
             if (this.renderer.tick % 1 == 0){
                 this.getInfo()
