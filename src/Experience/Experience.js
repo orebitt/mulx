@@ -73,7 +73,7 @@ export default class Experience
         this.renderer.instance.setAnimationLoop( ()=> {
             this.locomotion.calculateLocomotion();  
             this.renderer.tick += 1
-            if (this.renderer.tick % 1 == 0){
+            if (this.renderer.tick % 500 == 0){
                 this.getInfo()
             }
             this.teleportVR.update();
