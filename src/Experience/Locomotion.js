@@ -38,6 +38,12 @@ const guidesprite = new THREE.Mesh(
 guidesprite.rotation.x = -Math.PI/2;
 
 
+function onSelectStart() {
+    this.guidingController = this;
+    guidelight.intensity = 1;
+    window.experience.scene.add(guideline);
+    window.experience.scene.add(guidesprite);
+}
 
 
 function onSelectEnd() {
@@ -76,8 +82,8 @@ function onSelectEnd() {
         // clean up
         this.guidingController = null;
         guidelight.intensity = 0;
-        this.remove(guideline);
-        this.scene.remove(guidesprite);
+        window.experience.scene.remove(guideline);
+        window.experience.scene.remove(guidesprite);
         console.log('4')
     }
 }
@@ -103,17 +109,17 @@ export default class Locomotion
         // Once controllers are rendered
         if(this.controller1 && this.controller2){
             this.controller1.addEventListener('selectstart', function(){
-                this.selectStart()
+                onSelectStart()
             });
             this.controller1.addEventListener('selectend', function(){
-                this.selectEnd(this.controller1);
+                onSelectEnd()
             });
 
             this.controller2.addEventListener('selectstart', function(){
-                this.selectStart(this.controller2);
+                onSelectStart()
             });
             this.controller2.addEventListener('selectend', function(){
-                this.selectEnd(this.controller2);
+                onSelectEnd()
             });
         }
 
@@ -152,15 +158,5 @@ export default class Locomotion
             positionAtT(guidesprite.position,t*0.98,p,v,g);
         }
     
-    }
-    selectStart() {
-        console.log(this)
-        /*        
-        console.log(this)
-        this.guidingController = this;
-        guidelight.intensity = 1;
-        this.add(guideline);
-        this.scene.add(guidesprite);
-*/
     }
 }
