@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Controllers from './Controllers.js'
+import Experience from './Experience.js'
 
 // Utility Vectors
 const g = new THREE.Vector3(0,-9.8,0);
@@ -23,12 +24,21 @@ const guideline = new THREE.Line( lineGeometry, lineMaterial );
 // The light at the end of the line
 const guidelight = new THREE.PointLight(0xffeeaa, 0, 2);
 
-function onSelectStart() {
-    this.guidingController = this;
-    guidelight.intensity = 1;
-    this.add(guideline);
-    scene.add(guidesprite);
-}
+// The target on the ground
+const guidespriteTexture = new THREE.TextureLoader().load('images/target.png');
+const guidesprite = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.3, 0.3, 1, 1),
+    new THREE.MeshBasicMaterial({
+        map: guidespriteTexture,
+        blending: THREE.AdditiveBlending,
+        color: 0x555555,
+        transparent: true
+    })
+);
+guidesprite.rotation.x = -Math.PI/2;
+
+
+
 
 function onSelectEnd() {
     if (this.guidingController === this) {
@@ -36,9 +46,17 @@ function onSelectEnd() {
         // teleport work out vector from feet to cursor
 
         // feet pos
+
+        //window.expreience.camera, window.experience.renderer
         const feetPos = tempVec0;
-        renderer.xr.getCamera(camera).getWorldPosition(feetPos);
+        console.log(feetPos)
+        console.log(window.experience.renderer);
+        console.log(window.experience.renderer.instance.xr.getCamera(window.experience.camera)); //window is weird way
+        console.log('0')
+        window.experience.renderer.instance.xr.getCamera(window.experience.camera).getWorldPosition(feetPos);
         feetPos.y = 0;
+
+        console.log('1')
 
         // cursor pos
         const cursorPos = tempVec1;
@@ -49,18 +67,18 @@ function onSelectEnd() {
         v.multiplyScalar(6);
         const t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
         positionAtT(cursorPos,t,p,v,g);
+        console.log('2')
 
         const offset = cursorPos;
         offset.addScaledVector(feetPos ,-1);
-
-        // Do the locomotion
-        locomotion(offset);
+        console.log('3')
 
         // clean up
         this.guidingController = null;
         guidelight.intensity = 0;
         this.remove(guideline);
-        scene.remove(guidesprite);
+        this.scene.remove(guidesprite);
+        console.log('4')
     }
 }
 
@@ -70,18 +88,37 @@ export default class Locomotion
 {
     constructor()
     {
-        this.controller1 = Controllers.controller1
-        this.controller2 = Controllers.controller2
+        this.experience = new Experience()
+        this.camera = this.experience.camera
+        this.renderer = this.experience.renderer
+        this.scene = this.experience.scene
+        console.log(this.scene, "Scene")
+        console.log("Creating Locomotion")
+
+        this.controller1 = this.renderer.instance.xr.getController( 0 );
+
+        this.controller2 = this.renderer.instance.xr.getController( 1 );
         this.guidingController = null;
 
         // Once controllers are rendered
         if(this.controller1 && this.controller2){
-            this.controller1.addEventListener('selectstart', onSelectStart);
-            this.controller1.addEventListener('selectend', onSelectEnd);
+            this.controller1.addEventListener('selectstart', function(){
+                this.selectStart()
+            });
+            this.controller1.addEventListener('selectend', function(){
+                this.selectEnd(this.controller1);
+            });
 
-            this.controller2.addEventListener('selectstart', onSelectStart);
-            this.controller2.addEventListener('selectend', onSelectEnd);
+            this.controller2.addEventListener('selectstart', function(){
+                this.selectStart(this.controller2);
+            });
+            this.controller2.addEventListener('selectend', function(){
+                this.selectEnd(this.controller2);
+            });
         }
+
+        console.log("testing", this.controller1)
+        console.log(this.controller2)
     }
     calculateLocomotion(){
         if (this.guidingController) {
@@ -115,5 +152,15 @@ export default class Locomotion
             positionAtT(guidesprite.position,t*0.98,p,v,g);
         }
     
+    }
+    selectStart() {
+        console.log(this)
+        /*        
+        console.log(this)
+        this.guidingController = this;
+        guidelight.intensity = 1;
+        this.add(guideline);
+        this.scene.add(guidesprite);
+*/
     }
 }
