@@ -58,10 +58,10 @@ function onSelectEnd() {
         console.log(feetPos)
         console.log(window.experience.camera, "camera")
         console.log(window.experience.renderer.instance.xr, "instance")
-        console.log(console.log(window.experience.renderer.instance.xr.getCamera()), "xr getCamera alternative?")
-        console.log(window.experience.renderer.instance.xr.getCamera(window.experience.camera)); //window is weird way
+        //console.log(console.log(window.experience.renderer.instance.xr.getCamera()), "xr getCamera alternative?")
+        //console.log(window.experience.renderer.instance.xr.getCamera(window.experience.camera)); //window is weird way
         console.log('0')
-        window.experience.renderer.instance.xr.getCamera(window.experience.camera).getWorldPosition(feetPos);
+        //window.experience.renderer.instance.xr.getCamera(window.experience.camera).getWorldPosition(feetPos);
         feetPos.y = 0;
 
         console.log('1')
