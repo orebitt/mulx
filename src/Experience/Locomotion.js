@@ -108,19 +108,11 @@ export default class Locomotion
 
         // Once controllers are rendered
         if(this.controller1 && this.controller2){
-            this.controller1.addEventListener('selectstart', function(){
-                onSelectStart()
-            });
-            this.controller1.addEventListener('selectend', function(){
-                onSelectEnd()
-            });
+            this.controller1.addEventListener('selectstart', onSelectStart);
+            this.controller1.addEventListener('selectend', onSelectEnd);
 
-            this.controller2.addEventListener('selectstart', function(){
-                onSelectStart()
-            });
-            this.controller2.addEventListener('selectend', function(){
-                onSelectEnd()
-            });
+            this.controller2.addEventListener('selectstart', onSelectStart);
+            this.controller2.addEventListener('selectend', onSelectEnd);
         }
 
         console.log("testing", this.controller1)
