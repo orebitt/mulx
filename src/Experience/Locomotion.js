@@ -37,6 +37,14 @@ const guidesprite = new THREE.Mesh(
 );
 guidesprite.rotation.x = -Math.PI/2;
 
+// Guideline parabola function
+function positionAtT(inVec,t,p,v,g) {
+    inVec.copy(p);
+    inVec.addScaledVector(v,t);
+    inVec.addScaledVector(g,0.5*t**2);
+    return inVec;
+}
+
 
 function onSelectStart() {
     this.guidingController = this;
