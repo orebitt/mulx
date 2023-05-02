@@ -129,6 +129,7 @@ export default class Locomotion
         console.log(this.controller2)
     }
     calculateLocomotion(){
+        console.log('locomoting!')
         if (this.guidingController) {
             // Controller start position
             const p = tempVecP;

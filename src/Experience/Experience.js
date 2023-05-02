@@ -71,7 +71,7 @@ export default class Experience
         document.body.appendChild( VRButton.createButton( this.renderer.instance ) );
         // True animation loop, time loop does not work.
         this.renderer.instance.setAnimationLoop( ()=> {
-            this.locomotion.calculateLocomotion();  
+            this.locomotion.calculateLocomotion();  // Adds locomotion calculation to render loop
             this.renderer.tick += 1
             if (this.renderer.tick % 500 == 0){
                 this.getInfo()
