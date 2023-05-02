@@ -56,7 +56,8 @@ function onSelectEnd() {
         //window.expreience.camera, window.experience.renderer
         const feetPos = tempVec0;
         console.log(feetPos)
-        console.log(window.experience.renderer);
+        console.log(window.experience.camera, "camera")
+        console.log(window.experience.renderer.instance.xr, "instance")
         console.log(window.experience.renderer.instance.xr.getCamera(window.experience.camera)); //window is weird way
         console.log('0')
         window.experience.renderer.instance.xr.getCamera(window.experience.camera).getWorldPosition(feetPos);
