@@ -159,6 +159,8 @@ export default class Locomotion
             // Place the light near the end of the poing
             positionAtT(guidelight.position,t*0.98,p,v,g);
             positionAtT(guidesprite.position,t*0.98,p,v,g);
+        } else {
+            console.log('gyah! not locomoting!')
         }
     
     }
