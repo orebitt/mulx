@@ -62,7 +62,6 @@ function onSelectEnd() {
         // feet pos
 
         //window.expreience.camera, window.experience.renderer
-        console.log(feetPos)
         console.log(window.experience.camera, "camera")
         console.log(window.experience.renderer.instance.xr, "instance")
         //console.log(console.log(window.experience.renderer.instance.xr.getCamera()), "xr getCamera alternative?")
