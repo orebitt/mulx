@@ -67,7 +67,7 @@ function onSelectEnd() {
         //console.log(console.log(window.experience.renderer.instance.xr.getCamera()), "xr getCamera alternative?")
         //console.log(window.experience.renderer.instance.xr.getCamera(window.experience.camera)); //window is weird way
         console.log('0')
-        const feetPos = window.experience.camera.position;
+        const feetPos = window.experience.camera.instance.position;
         console.log(feetPos)
         feetPos[1] = 0; // feetPos.y = 0
 
