@@ -9,6 +9,10 @@ const tempVec1 = new THREE.Vector3();
 const tempVecP = new THREE.Vector3();
 const tempVecV = new THREE.Vector3();
 
+//guiding controller
+let guidingController = null;
+
+
 // The guideline
 const lineSegments=10;
 const lineGeometry = new THREE.BufferGeometry();
@@ -47,7 +51,8 @@ function positionAtT(inVec,t,p,v,g) {
 
 
 function onSelectStart() {
-    this.guidingController = this;
+    const controller = this;
+    guidingController = controller;
     guidelight.intensity = 1;
     window.experience.scene.add(guideline);
     window.experience.scene.add(guidesprite);
@@ -55,7 +60,7 @@ function onSelectStart() {
 
 
 function onSelectEnd() {
-    if (this.guidingController === this) {
+    if (guidingController === this) {
 
         // teleport work out vector from feet to cursor
 
@@ -76,9 +81,9 @@ function onSelectEnd() {
         // cursor pos
         const cursorPos = tempVec1;
         const p = tempVecP;
-        this.guidingController.getWorldPosition(p);
+        guidingController.getWorldPosition(p);
         const v = tempVecV;
-        this.guidingController.getWorldDirection(v);
+        guidingController.getWorldDirection(v);
         v.multiplyScalar(6);
         const t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
         positionAtT(cursorPos,t,p,v,g);
@@ -89,7 +94,7 @@ function onSelectEnd() {
         console.log('3')
 
         // clean up
-        this.guidingController = null;
+        guidingController = null;
         guidelight.intensity = 0;
         window.experience.scene.remove(guideline);
         window.experience.scene.remove(guidesprite);
@@ -114,7 +119,6 @@ export default class Locomotion
         this.controller1 = this.renderer.instance.xr.getController( 0 );
 
         this.controller2 = this.renderer.instance.xr.getController( 1 );
-        this.guidingController = null;
 
         // Once controllers are rendered
         if(this.controller1 && this.controller2){
@@ -130,14 +134,15 @@ export default class Locomotion
     }
     calculateLocomotion(){
         console.log('locomoting!')
-        if (this.guidingController) {
+        console.log(guidingController)
+        if (guidingController) {
             // Controller start position
             const p = tempVecP;
-            this.guidingController.getWorldPosition(p);
+            guidingController.getWorldPosition(p);
     
             // virtual tele ball velocity
             const v = tempVecV;
-            this.guidingController.getWorldDirection(v);
+            guidingController.getWorldDirection(v);
             v.multiplyScalar(6);
     
             // Time for tele ball to hit ground
@@ -151,7 +156,7 @@ export default class Locomotion
     
                 // Current position of the virtual ball at time t, written to the variable 'to'
                 positionAtT(to,i*t/lineSegments,p,v,g);
-                this.guidingController.worldToLocal(to);
+                guidingController.worldToLocal(to);
                 to.toArray(lineGeometryVertices,i*3);
             }
             guideline.geometry.attributes.position.needsUpdate = true;
