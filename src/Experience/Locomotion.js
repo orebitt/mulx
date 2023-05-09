@@ -144,7 +144,7 @@ export default class Locomotion
             // Time for tele ball to hit ground
             const t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
     
-            const vertex = tempVec.set(0,0,0);    
+            const vertex = tempVec0.set(0,0,0);    
             for (let i=1; i<=lineSegments; i++) {
     
                 // Current position of the virtual ball at time t, written to the variable 'to'
