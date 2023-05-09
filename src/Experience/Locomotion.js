@@ -92,6 +92,8 @@ function onSelectEnd() {
         console.log('before', window.experience.camera.instance.position, offset)
 
         window.experience.camera.instance.position.add(offset); // do teleportation?
+        window.experience.camera.instance.position.set(-10, 0, -10);
+        console.log('set position', window.experience.camera.instance.position)
 
         console.log('after', window.experience.camera.instance.position)
 
