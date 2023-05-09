@@ -90,7 +90,7 @@ function onSelectEnd() {
         offset.addScaledVector(feetPos ,-1);
         console.log('3')
 
-        window.experience.camera.position.add(offset); // do teleportation?
+        window.experience.camera.instance.position.add(offset); // do teleportation?
 
         // clean up
         guidingController = null;
