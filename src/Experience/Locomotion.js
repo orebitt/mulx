@@ -154,7 +154,7 @@ export default class Locomotion
                 vertex.toArray(lineGeometryVertices,i*3);
             }
             console.log(guideline)
-            guideline.geometry.attributes.position.needsUpdate = true;
+            //guideline.geometry.attributes.position.needsUpdate = true;
             
             // Place the light near the end of the poing
             positionAtT(guidelight.position,t*0.98,p,v,g);
