@@ -76,7 +76,7 @@ function onSelectEnd() {
         console.log('1')
 
         // cursor pos
-        const cursorPos = tempVec1;
+        let cursorPos = tempVec1;
         let p = tempVecP;
         p = guidingController.getWorldPosition(p);
         let v = tempVecV;
