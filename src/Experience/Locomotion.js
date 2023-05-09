@@ -92,7 +92,7 @@ function onSelectEnd() {
         console.log('before', window.experience.camera.instance.position, offset)
 
         window.experience.camera.instance.position.add(offset); // do teleportation?
-        window.experience.camera.instance.position.set(-10, 0, -10);
+        window.experience.renderer.instance.xr.getCamera().cameras[0].position.add(offset)
         console.log('set position', window.experience.camera.instance.position)
 
         console.log('after', window.experience.camera.instance.position)
@@ -137,7 +137,7 @@ export default class Locomotion
         console.log(this.controller2)
     }
     calculateLocomotion(){
-        console.log('locomoting!', window.experience.camera.instance.position)
+        console.log('locomoting!', window.experience.renderer.instance.xr.getCamera().cameras[0])
         console.log(guidingController)
         if (guidingController) {
             // Controller start position
