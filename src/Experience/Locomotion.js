@@ -47,6 +47,7 @@ function positionAtT(inVec,t,p,v,g) {
 
 
 function onSelectStart() {
+    console.log('start selected')
     const controller = this;
     guidingController = controller;
     guidelight.intensity = 1;
@@ -152,6 +153,7 @@ export default class Locomotion
                 guidingController.worldToLocal(vertex);
                 vertex.toArray(lineGeometryVertices,i*3);
             }
+            console.log(guideline)
             guideline.geometry.attributes.position.needsUpdate = true;
             
             // Place the light near the end of the poing
