@@ -136,16 +136,16 @@ export default class Locomotion
         console.log(guidingController)
         if (guidingController) {
             // Controller start position
-            const p = tempVecP;
+            let p = tempVecP;
             p = guidingController.getWorldPosition(p);
     
             // virtual tele ball velocity
-            const v = tempVecV;
+            let v = tempVecV;
             v = guidingController.getWorldDirection(v);
             v.multiplyScalar(6);
     
             // Time for tele ball to hit ground
-            const t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
+            let t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
     
             const vertex = tempVec0.set(0,0,0);    
             for (let i=1; i<=lineSegments; i++) {
