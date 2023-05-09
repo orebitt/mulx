@@ -78,17 +78,19 @@ function onSelectEnd() {
         // cursor pos
         const cursorPos = tempVec1;
         const p = tempVecP;
-        guidingController.getWorldPosition(p);
+        p = guidingController.getWorldPosition(p);
         const v = tempVecV;
-        guidingController.getWorldDirection(v);
+        v = guidingController.getWorldDirection(v);
         v.multiplyScalar(6);
         const t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
-        positionAtT(cursorPos,t,p,v,g);
+        cursorPos = positionAtT(cursorPos,t,p,v,g);
         console.log('2')
 
         const offset = cursorPos;
         offset.addScaledVector(feetPos ,-1);
         console.log('3')
+
+        window.experience.camera.position.add(offset); // do teleportation?
 
         // clean up
         guidingController = null;
@@ -135,11 +137,11 @@ export default class Locomotion
         if (guidingController) {
             // Controller start position
             const p = tempVecP;
-            guidingController.getWorldPosition(p);
+            p = guidingController.getWorldPosition(p);
     
             // virtual tele ball velocity
             const v = tempVecV;
-            guidingController.getWorldDirection(v);
+            v = guidingController.getWorldDirection(v);
             v.multiplyScalar(6);
     
             // Time for tele ball to hit ground
@@ -154,7 +156,8 @@ export default class Locomotion
                 vertex.toArray(lineGeometryVertices,i*3);
             }
             console.log(guideline)
-            //guideline.geometry.attributes.position.needsUpdate = true;
+            //guideline needs to be fixed
+            //guideline.geometry.attributes.position.needsUpdate = true; 
             
             // Place the light near the end of the poing
             positionAtT(guidelight.position,t*0.98,p,v,g);
