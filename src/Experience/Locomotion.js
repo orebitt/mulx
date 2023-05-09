@@ -86,7 +86,7 @@ function onSelectEnd() {
         cursorPos = positionAtT(cursorPos,t,p,v,g);
         console.log('2')
 
-        const offset = cursorPos;
+        let offset = cursorPos;
         offset.addScaledVector(feetPos ,-1);
         console.log('3')
 
