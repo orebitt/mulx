@@ -137,7 +137,7 @@ export default class Locomotion
         console.log(this.controller2)
     }
     calculateLocomotion(){
-        console.log('locomoting!')
+        console.log('locomoting!', window.experience.camera.instance.position)
         console.log(guidingController)
         if (guidingController) {
             // Controller start position
