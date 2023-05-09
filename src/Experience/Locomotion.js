@@ -19,7 +19,7 @@ const lineGeometry = new THREE.BufferGeometry();
 const lineGeometryVertices = new Float32Array((lineSegments + 1) * 3);
 lineGeometryVertices.fill(0);
 const lineMaterial = new THREE.LineBasicMaterial({ color: 0x888888, blending: THREE.AdditiveBlending });
-const guideline = new Line( lineGeometry, lineMaterial );
+const guideline = new THREE.Line( lineGeometry, lineMaterial );
 
 // The light at the end of the line
 const guidelight = new THREE.PointLight(0xffeeaa, 0, 2);
