@@ -77,12 +77,12 @@ function onSelectEnd() {
 
         // cursor pos
         const cursorPos = tempVec1;
-        const p = tempVecP;
+        let p = tempVecP;
         p = guidingController.getWorldPosition(p);
-        const v = tempVecV;
+        let v = tempVecV;
         v = guidingController.getWorldDirection(v);
         v.multiplyScalar(6);
-        const t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
+        let t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
         cursorPos = positionAtT(cursorPos,t,p,v,g);
         console.log('2')
 
