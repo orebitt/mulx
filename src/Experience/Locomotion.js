@@ -112,6 +112,7 @@ export default class Locomotion
 {
     constructor()
     {
+        /*
         this.experience = new Experience()
         this.camera = this.experience.camera
         this.renderer = this.experience.renderer
@@ -135,8 +136,10 @@ export default class Locomotion
 
         console.log("testing", this.controller1)
         console.log(this.controller2)
+        */
     }
     calculateLocomotion(){
+        /*
         let buttonState = document.getElementById("VRButton").innerHTML
         console.log(buttonState)
         if (buttonState != "ENTER VR" && buttonState == 'EXIT VR'){ // if we are in VR mode
@@ -174,6 +177,6 @@ export default class Locomotion
                 console.log('gyah! not locomoting!')
             }
         
-        }
+        } */
     }
 }

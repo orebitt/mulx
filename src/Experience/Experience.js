@@ -58,6 +58,20 @@ export default class Experience
         this.locomotion = new Locomotion()
         console.log('Starting connection to', this.socket)
 
+        const controllerGrip0 = renderer.xr.getControllerGrip(0)
+        controllerGrip0.addEventListener('connected', (e) => {
+            controllerGrip0.add(lefthand)
+            teleportVR.add(0, controllerGrip0, e.data.gamepad)
+        })
+
+        const controllerGrip1 = renderer.xr.getControllerGrip(1)
+        controllerGrip1.addEventListener('connected', (e) => {
+            controllerGrip1.add(righthand)
+            teleportVR.add(1, controllerGrip1, e.data.gamepad)
+        })
+
+
+
         // Once message is sent, wait for response
         this.socket.connection.addEventListener('message', e => {
             console.log('WebSocket received a message:', e)
