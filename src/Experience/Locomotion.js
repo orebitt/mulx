@@ -119,7 +119,7 @@ export default class Locomotion
         console.log(this.scene, "Scene")
         console.log("Creating Locomotion")
         console.log(this.camera, "another camera???")
-        console.log(this.renderer.instance.xr.getCamera(this.camera))
+        //console.log(this.renderer.instance.xr.getCamera(this.camera))
 
         this.controller1 = this.renderer.instance.xr.getController( 0 );
 
@@ -138,39 +138,42 @@ export default class Locomotion
         console.log(this.controller2)
     }
     calculateLocomotion(){
-        console.log('locomoting!', window.experience.renderer.instance.xr.getCamera().cameras[0])
-        console.log(guidingController)
-        if (guidingController) {
-            // Controller start position
-            let p = tempVecP;
-            p = guidingController.getWorldPosition(p);
-    
-            // virtual tele ball velocity
-            let v = tempVecV;
-            v = guidingController.getWorldDirection(v);
-            v.multiplyScalar(6);
-    
-            // Time for tele ball to hit ground
-            let t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
-    
-            const vertex = tempVec0.set(0,0,0);    
-            for (let i=1; i<=lineSegments; i++) {
-    
-                // Current position of the virtual ball at time t, written to the variable 'to'
-                positionAtT(vertex,i*t/lineSegments,p,v,g);
-                guidingController.worldToLocal(vertex);
-                vertex.toArray(lineGeometryVertices,i*3);
+        let buttonState = document.getElementById("VRButton").innerHTML
+        if (buttonState != "ENTER VR"){ // if we are in VR mode
+            console.log('locomoting!', window.experience.renderer.instance.xr.getCamera().cameras[0])
+            console.log(guidingController)
+            if (guidingController) {
+                // Controller start position
+                let p = tempVecP;
+                p = guidingController.getWorldPosition(p);
+        
+                // virtual tele ball velocity
+                let v = tempVecV;
+                v = guidingController.getWorldDirection(v);
+                v.multiplyScalar(6);
+        
+                // Time for tele ball to hit ground
+                let t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
+        
+                const vertex = tempVec0.set(0,0,0);    
+                for (let i=1; i<=lineSegments; i++) {
+        
+                    // Current position of the virtual ball at time t, written to the variable 'to'
+                    positionAtT(vertex,i*t/lineSegments,p,v,g);
+                    guidingController.worldToLocal(vertex);
+                    vertex.toArray(lineGeometryVertices,i*3);
+                }
+                console.log(guideline)
+                //guideline needs to be fixed
+                //guideline.geometry.attributes.position.needsUpdate = true; 
+                
+                // Place the light near the end of the poing
+                positionAtT(guidelight.position,t*0.98,p,v,g);
+                positionAtT(guidesprite.position,t*0.98,p,v,g);
+            } else {
+                console.log('gyah! not locomoting!')
             }
-            console.log(guideline)
-            //guideline needs to be fixed
-            //guideline.geometry.attributes.position.needsUpdate = true; 
-            
-            // Place the light near the end of the poing
-            positionAtT(guidelight.position,t*0.98,p,v,g);
-            positionAtT(guidesprite.position,t*0.98,p,v,g);
-        } else {
-            console.log('gyah! not locomoting!')
+        
         }
-    
     }
 }
