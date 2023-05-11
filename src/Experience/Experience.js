@@ -58,16 +58,14 @@ export default class Experience
         this.locomotion = new Locomotion()
         console.log('Starting connection to', this.socket)
 
-        const controllerGrip0 = renderer.xr.getControllerGrip(0)
+        const controllerGrip0 = this.renderer.instance.xr.getControllerGrip(0)
         controllerGrip0.addEventListener('connected', (e) => {
-            controllerGrip0.add(lefthand)
-            teleportVR.add(0, controllerGrip0, e.data.gamepad)
+            this.teleportVR.add(0, controllerGrip0, e.data.gamepad)
         })
 
-        const controllerGrip1 = renderer.xr.getControllerGrip(1)
+        const controllerGrip1 = this.renderer.instance.xr.getControllerGrip(1)
         controllerGrip1.addEventListener('connected', (e) => {
-            controllerGrip1.add(righthand)
-            teleportVR.add(1, controllerGrip1, e.data.gamepad)
+            this.teleportVR.add(1, controllerGrip1, e.data.gamepad)
         })
 
 
