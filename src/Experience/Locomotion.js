@@ -119,7 +119,6 @@ export default class Locomotion
         console.log(this.scene, "Scene")
         console.log("Creating Locomotion")
         console.log(this.camera, "another camera???")
-        //console.log(this.renderer.instance.xr.getCamera(this.camera))
 
         this.controller1 = this.renderer.instance.xr.getController( 0 );
 
