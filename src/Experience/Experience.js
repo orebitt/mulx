@@ -54,7 +54,7 @@ export default class Experience
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.socket = new Socket()
-        this.teleportVR = new TeleportVR(this.scene, this.camera.instance);
+        this.teleportVR = new TeleportVR(this.scene, this.camera);
         this.locomotion = new Locomotion()
         console.log('Starting connection to', this.socket)
 
