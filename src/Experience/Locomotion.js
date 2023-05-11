@@ -139,7 +139,7 @@ export default class Locomotion
     calculateLocomotion(){
         let buttonState = document.getElementById("VRButton").innerHTML
         console.log(buttonState)
-        if (buttonState != "ENTER VR"){ // if we are in VR mode
+        if (buttonState != "ENTER VR" && buttonState == 'EXIT VR'){ // if we are in VR mode
             console.log('locomoting!', window.experience.renderer.instance.xr.getCamera(window.experience.camera).cameras[0])
             console.log(guidingController)
             if (guidingController) {
