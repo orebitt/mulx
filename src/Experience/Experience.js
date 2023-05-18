@@ -87,8 +87,8 @@ export default class Experience
             this.teleportVR.add(1, controllerGrip1, e.data.gamepad)
         })
 
-        elevationMeshList.push(this.world.sushi);
-        //elevationMeshList.push(this.world.floor);
+        //elevationMeshList.push(this.world.sushi);
+        elevationMeshList.push(this.world.floor);
 
 
 
