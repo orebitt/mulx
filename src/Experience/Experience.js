@@ -88,7 +88,16 @@ export default class Experience
         })
 
         //elevationMeshList.push(this.world.sushi);
-        elevationMeshList.push(this.world.floor);
+        //elevationMeshList.push(this.world.floor);
+        const floor2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(20, 20, 10, 10),
+            new THREE.MeshBasicMaterial({
+                color: 0x008800,
+                wireframe: true,
+            })
+        )
+        elevationMeshList.push(floor2)
+
 
 
 
