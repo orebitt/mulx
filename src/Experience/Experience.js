@@ -88,7 +88,7 @@ export default class Experience
         })
 
         elevationMeshList.push(this.world.sushi);
-        elevationMeshList.push(this.world.floor);
+        //elevationMeshList.push(this.world.floor);
 
 
 
