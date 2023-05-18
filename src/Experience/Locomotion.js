@@ -1,7 +1,116 @@
 import * as THREE from 'three'
 import Controllers from './Controllers.js'
 import Experience from './Experience.js'
+import TeleportVR from 'teleportvr';
+export default class Locomotion
+{
+    constructor()
+    {
+        // Init teleportVR
+        this.teleportVR = new TeleportVR(Experience.scene, Experience.camera.instance)
 
+        // Use to add collision (objects inside the list will have collision added to them)
+        this.elevationMeshList = []
+
+        const lefthand = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.05, 0.05, 0.4, 16, 1, true),
+            new THREE.MeshBasicMaterial({
+                color: 0x00ff88,
+                wireframe: true,
+            })
+        )
+        
+        // Init controllers w/ green mesh
+        const controllerGrip0 = Experience.renderer.instance.xr.getControllerGrip(0)
+        controllerGrip0.addEventListener('connected', (e) => {
+            controllerGrip0.add(lefthand)
+            this.teleportVR.add(0, controllerGrip0, e.data.gamepad)
+        })
+        const righthand = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.05, 0.05, 0.4, 16, 1, true),
+            new THREE.MeshBasicMaterial({
+                color: 0x00ff88,
+                wireframe: true,
+            })
+        )
+
+        const controllerGrip1 = Experience.renderer.instance.xr.getControllerGrip(1)
+        controllerGrip1.addEventListener('connected', (e) => {
+            controllerGrip1.add(righthand)
+            this.teleportVR.add(1, controllerGrip1, e.data.gamepad)
+        })
+
+        /*
+        this.experience = new Experience()
+        this.camera = this.experience.camera
+        this.renderer = this.experience.renderer
+        this.scene = this.experience.scene
+        console.log(this.scene, "Scene")
+        console.log("Creating Locomotion")
+        console.log(this.camera, "another camera???")
+
+        this.controller1 = this.renderer.instance.xr.getController( 0 );
+
+        this.controller2 = this.renderer.instance.xr.getController( 1 );
+
+        // Once controllers are rendered
+        if(this.controller1 && this.controller2){
+            this.controller1.addEventListener('selectstart', onSelectStart);
+            this.controller1.addEventListener('selectend', onSelectEnd);
+
+            this.controller2.addEventListener('selectstart', onSelectStart);
+            this.controller2.addEventListener('selectend', onSelectEnd);
+        }
+
+        console.log("testing", this.controller1)
+        console.log(this.controller2)
+        */
+    }
+    calculateLocomotion(){
+        /*
+        let buttonState = document.getElementById("VRButton").innerHTML
+        console.log(buttonState)
+        if (buttonState != "ENTER VR" && buttonState == 'EXIT VR'){ // if we are in VR mode
+            console.log('locomoting!', window.experience.renderer.instance.xr.getCamera(window.experience.camera).cameras[0])
+            console.log(guidingController)
+            if (guidingController) {
+                // Controller start position
+                let p = tempVecP;
+                p = guidingController.getWorldPosition(p);
+        
+                // virtual tele ball velocity
+                let v = tempVecV;
+                v = guidingController.getWorldDirection(v);
+                v.multiplyScalar(6);
+        
+                // Time for tele ball to hit ground
+                let t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
+        
+                const vertex = tempVec0.set(0,0,0);    
+                for (let i=1; i<=lineSegments; i++) {
+        
+                    // Current position of the virtual ball at time t, written to the variable 'to'
+                    positionAtT(vertex,i*t/lineSegments,p,v,g);
+                    guidingController.worldToLocal(vertex);
+                    vertex.toArray(lineGeometryVertices,i*3);
+                }
+                console.log(guideline)
+                //guideline needs to be fixed
+                //guideline.geometry.attributes.position.needsUpdate = true; 
+                
+                // Place the light near the end of the poing
+                positionAtT(guidelight.position,t*0.98,p,v,g);
+                positionAtT(guidesprite.position,t*0.98,p,v,g);
+            } else {
+                console.log('gyah! not locomoting!')
+            }
+        
+        } */
+    }
+}
+
+
+/*
 // Utility Vectors
 const g = new THREE.Vector3(0,-9.8,0);
 const tempVec0 = new THREE.Vector3();
@@ -107,76 +216,4 @@ function onSelectEnd() {
 }
 
 
-
-export default class Locomotion
-{
-    constructor()
-    {
-        /*
-        this.experience = new Experience()
-        this.camera = this.experience.camera
-        this.renderer = this.experience.renderer
-        this.scene = this.experience.scene
-        console.log(this.scene, "Scene")
-        console.log("Creating Locomotion")
-        console.log(this.camera, "another camera???")
-
-        this.controller1 = this.renderer.instance.xr.getController( 0 );
-
-        this.controller2 = this.renderer.instance.xr.getController( 1 );
-
-        // Once controllers are rendered
-        if(this.controller1 && this.controller2){
-            this.controller1.addEventListener('selectstart', onSelectStart);
-            this.controller1.addEventListener('selectend', onSelectEnd);
-
-            this.controller2.addEventListener('selectstart', onSelectStart);
-            this.controller2.addEventListener('selectend', onSelectEnd);
-        }
-
-        console.log("testing", this.controller1)
-        console.log(this.controller2)
-        */
-    }
-    calculateLocomotion(){
-        /*
-        let buttonState = document.getElementById("VRButton").innerHTML
-        console.log(buttonState)
-        if (buttonState != "ENTER VR" && buttonState == 'EXIT VR'){ // if we are in VR mode
-            console.log('locomoting!', window.experience.renderer.instance.xr.getCamera(window.experience.camera).cameras[0])
-            console.log(guidingController)
-            if (guidingController) {
-                // Controller start position
-                let p = tempVecP;
-                p = guidingController.getWorldPosition(p);
-        
-                // virtual tele ball velocity
-                let v = tempVecV;
-                v = guidingController.getWorldDirection(v);
-                v.multiplyScalar(6);
-        
-                // Time for tele ball to hit ground
-                let t = (-v.y  + Math.sqrt(v.y**2 - 2*p.y*g.y))/g.y;
-        
-                const vertex = tempVec0.set(0,0,0);    
-                for (let i=1; i<=lineSegments; i++) {
-        
-                    // Current position of the virtual ball at time t, written to the variable 'to'
-                    positionAtT(vertex,i*t/lineSegments,p,v,g);
-                    guidingController.worldToLocal(vertex);
-                    vertex.toArray(lineGeometryVertices,i*3);
-                }
-                console.log(guideline)
-                //guideline needs to be fixed
-                //guideline.geometry.attributes.position.needsUpdate = true; 
-                
-                // Place the light near the end of the poing
-                positionAtT(guidelight.position,t*0.98,p,v,g);
-                positionAtT(guidesprite.position,t*0.98,p,v,g);
-            } else {
-                console.log('gyah! not locomoting!')
-            }
-        
-        } */
-    }
-}
+*/

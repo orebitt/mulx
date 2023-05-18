@@ -10,7 +10,6 @@ import World from './World/World.js'
 import sources from './sources.js'
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js'
 import Controllers from './Controllers.js'
-import TeleportVR from 'teleportvr';
 import Locomotion from './Locomotion.js'
 
 
@@ -55,37 +54,10 @@ export default class Experience
         this.renderer = new Renderer()
         this.socket = new Socket()
 
-        this.teleportVR = new TeleportVR(this.scene, this.camera.instance);
         let elevationMeshList = [];
 
         this.locomotion = new Locomotion()
         console.log('Starting connection to', this.socket)
-        const lefthand = new THREE.Mesh(
-            new THREE.CylinderGeometry(0.05, 0.05, 0.4, 16, 1, true),
-            new THREE.MeshBasicMaterial({
-                color: 0x00ff88,
-                wireframe: true,
-            })
-        )
-
-        const controllerGrip0 = this.renderer.instance.xr.getControllerGrip(0)
-        controllerGrip0.addEventListener('connected', (e) => {
-            controllerGrip0.add(lefthand)
-            this.teleportVR.add(0, controllerGrip0, e.data.gamepad)
-        })
-        const righthand = new THREE.Mesh(
-            new THREE.CylinderGeometry(0.05, 0.05, 0.4, 16, 1, true),
-            new THREE.MeshBasicMaterial({
-                color: 0x00ff88,
-                wireframe: true,
-            })
-        )
-
-        const controllerGrip1 = this.renderer.instance.xr.getControllerGrip(1)
-        controllerGrip1.addEventListener('connected', (e) => {
-            controllerGrip1.add(righthand)
-            this.teleportVR.add(1, controllerGrip1, e.data.gamepad)
-        })
 
         //elevationMeshList.push(this.world.sushi);
         //elevationMeshList.push(this.world.floor);
@@ -137,7 +109,7 @@ export default class Experience
             if (this.renderer.tick % 500 == 0){
                 this.getInfo()
             }
-            this.teleportVR.update(elevationMeshList);
+            this.locomotion.teleportVR.update(this.locomotion.elevationMeshList);
             this.renderer.instance.render( this.scene, this.camera.instance );
         });
 
