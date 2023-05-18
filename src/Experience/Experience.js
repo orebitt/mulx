@@ -54,7 +54,10 @@ export default class Experience
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.socket = new Socket()
+
         this.teleportVR = new TeleportVR(this.scene, this.camera.instance);
+        let elevationMeshList = [];
+
         this.locomotion = new Locomotion()
         console.log('Starting connection to', this.socket)
         const lefthand = new THREE.Mesh(
@@ -84,6 +87,9 @@ export default class Experience
             this.teleportVR.add(1, controllerGrip1, e.data.gamepad)
         })
 
+        elevationMeshList.push(this.world.sushi);
+        elevationMeshList.push(this.world.floor);
+
 
 
         // Once message is sent, wait for response
@@ -104,7 +110,7 @@ export default class Experience
             if (this.renderer.tick % 500 == 0){
                 this.getInfo()
             }
-            this.teleportVR.update();
+            this.teleportVR.update(elevationMeshList);
             this.renderer.instance.render( this.scene, this.camera.instance );
         });
 
