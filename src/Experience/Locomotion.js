@@ -7,7 +7,8 @@ export default class Locomotion
     constructor()
     {
         // Init teleportVR
-        this.teleportVR = new TeleportVR(Experience.scene, Experience.camera.instance)
+        this.experience = new Experience()
+        this.teleportVR = new TeleportVR(this.experience.scene, this.experience.camera.instance)
 
         // Use to add collision (objects inside the list will have collision added to them)
         this.elevationMeshList = []
@@ -21,7 +22,7 @@ export default class Locomotion
         )
         
         // Init controllers w/ green mesh
-        const controllerGrip0 = Experience.renderer.instance.xr.getControllerGrip(0)
+        const controllerGrip0 = this.experience.renderer.instance.xr.getControllerGrip(0)
         controllerGrip0.addEventListener('connected', (e) => {
             controllerGrip0.add(lefthand)
             this.teleportVR.add(0, controllerGrip0, e.data.gamepad)
@@ -34,7 +35,7 @@ export default class Locomotion
             })
         )
 
-        const controllerGrip1 = Experience.renderer.instance.xr.getControllerGrip(1)
+        const controllerGrip1 = this.experience.renderer.instance.xr.getControllerGrip(1)
         controllerGrip1.addEventListener('connected', (e) => {
             controllerGrip1.add(righthand)
             this.teleportVR.add(1, controllerGrip1, e.data.gamepad)
