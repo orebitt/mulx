@@ -100,6 +100,20 @@ export default class Experience
         floor2.position.y = -0.001
         this.scene.add(floor2)
 
+        const cube1 = new THREE.Mesh(
+            new THREE.BoxGeometry(1, 2, 1),
+            new THREE.MeshBasicMaterial({
+                color: 0xff8800,
+                wireframe: true,
+            })
+        )
+        cube1.position.x = -10
+        cube1.position.y = 1
+        cube1.position.z = -10
+        this.scene.add(cube1)
+        elevationMeshList.push(cube1)
+
+
         elevationMeshList.push(floor2)
 
 
