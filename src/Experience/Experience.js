@@ -96,6 +96,10 @@ export default class Experience
                 wireframe: true,
             })
         )
+        floor2.rotation.x = Math.PI / -2
+        floor2.position.y = -0.001
+        scene.add(floor2)
+
         elevationMeshList.push(floor2)
 
 
