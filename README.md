@@ -1,5 +1,5 @@
 # xr
-webxr template that I use to teach three.js based development  
+webxr template that I use to teach three.js based development. Supports a maximum of two players.
 
 # usage
 
